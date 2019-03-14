@@ -8,7 +8,7 @@ class Calc:
         'FLOAT': r'\d+[\.,]\d+',
         'NONDIGIT': r'[a-zA-Z]',
         'LEFT_OP': r'\d+[(]',
-        'RIGHT_OP': r'\d+[(]'
+        'RIGHT_OP': r'[)]\d+'
     }
 
     _STATUS = {
@@ -17,7 +17,7 @@ class Calc:
         '2': 'Missing bracket(s)',
         '3': 'Expression contain more than 10 numbers',
         '4': 'Expression must contain minimum 2 numbers',
-        '5': 'missing operator near parenthesis',
+        '5': 'missing operator near parentheses',
     }
 
     def __init__(self, expression):
@@ -33,15 +33,15 @@ class Calc:
         return re.search(self._PATTERNS['NONDIGIT'], self.expression)
 
     def check_float_numbers(self):
-        return re.match(self._PATTERNS['FLOAT'], self.expression)
+        return re.search(self._PATTERNS['FLOAT'], self.expression)
 
     def check_qty_of_numbers(self):
         qty = len(re.findall(self._PATTERNS['INT'], self.expression))
         return qty
 
     def check_skip_operator(self):
-        left =  re.match(self._PATTERNS['LEFT_OP'], self.expression)
-        right = re.match(self._PATTERNS['RIGHT_OP'], self.expression)
+        left =  re.search(self._PATTERNS['LEFT_OP'], self.expression)
+        right = re.search(self._PATTERNS['RIGHT_OP'], self.expression)
         return left or right
 
     def expression_result(self):

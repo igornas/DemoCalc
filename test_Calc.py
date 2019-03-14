@@ -17,6 +17,19 @@ class TestCalc(unittest.TestCase):
         actual = c.expression_result()
         self.assertEqual(actual, expected)
 
+    def test_expressions_with_floats(self):
+        expression = "100+2.345*3-10/2"
+        c1 = Calc(expression)
+        expected = 'Expression contains float number(s)'
+        actual = c1.expression_result()
+        self.assertEqual(actual, expected)
+
+        expression = "100,34+2*3-10/2"
+        c2 = Calc(expression)
+        expected = 'Expression contains float number(s)'
+        actual = c2.expression_result()
+        self.assertEqual(actual, expected)
+
     def test_expression_with_no_numbers(self):
         expression = "+-/*"
         c = Calc(expression)
@@ -58,6 +71,19 @@ class TestCalc(unittest.TestCase):
         expected = 'Missing bracket(s)'
         actual = c.expression_result()
         self.assertEqual(actual, expected)
+
+    def test_expression_with_missing_operator(self):
+        expression = "((100+20)3-10/2+11-1*(10+34)-54)"
+        c1 = Calc(expression)
+        expected = 'missing operator near parentheses'
+        actual = c1.expression_result()
+        self.assertEqual(actual, expected)
+
+        # expression = "((100+20)*3-10/2+11-2(10+34)-54)"
+        # c2 = Calc(expression)
+        # expected = 'missing operator near parentheses'
+        # actual = c2.expression_result()
+        # self.assertEqual(actual, expected)
 
 if __name__ == '__main__':
     unittest.main()
