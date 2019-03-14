@@ -40,8 +40,8 @@ class Calc:
         return qty
 
     def check_skip_operator(self):
-        left =  re.search(self._PATTERNS['LEFT_OP'], self.expression)
-        right = re.search(self._PATTERNS['RIGHT_OP'], self.expression)
+        left = True if re.search(self._PATTERNS['LEFT_OP'], self.expression) else False
+        right = True if re.search(self._PATTERNS['RIGHT_OP'], self.expression) else False
         return left or right
 
     def expression_result(self):

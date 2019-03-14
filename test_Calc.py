@@ -31,6 +31,24 @@ class TestCalc(unittest.TestCase):
         c3 = Calc("54+123345-2")
         self.assertEqual(c3.check_float_numbers(), False)
 
+    def test_check_qty_of_numbers(self):
+        expression = "555+22-34*56/78"
+        c = Calc(expression)
+        expected = 5
+        self.assertEqual(c.check_qty_of_numbers(), 5)
+
+    def test_check_skip_operator(self):
+        expression = "555(22-34)*56/78"
+        c1 = Calc(expression)
+        self.assertEqual(c1.check_skip_operator(), True)
+
+        expression = "555*(22-34)56/78"
+        c2 = Calc(expression)
+        self.assertEqual(c2.check_skip_operator(), True)
+
+        expression = "555*(22-34)-56/78"
+        c3 = Calc(expression)
+        self.assertEqual(c3.check_skip_operator(), False)
 
     def test_valid_expressions(self):
         expression = "1+2*3-10/2"
