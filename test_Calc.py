@@ -32,16 +32,32 @@ class TestCalc(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_expression_with_ten_numbers(self):
-        pass
+        expression = "100+20*3-10/2+11-1*10+34-54"
+        c = Calc(expression)
+        expected = (10, "100+20*3-10/2+11-1*10+34-54", 100+20*3-10/2+11-1*10+34-54)
+        actual = c.expression_result()
+        self.assertEqual(actual, expected)
 
     def test_expression_with_more_then_ten_numbers(self):
-        pass
+        expression = "100+20*3-10/2+11-1*10+34-54+21"
+        c = Calc(expression)
+        expected = 'Expression contain more than 10 numbers'
+        actual = c.expression_result()
+        self.assertEqual(actual, expected)
 
     def test_expression_with_correct_parentheses(self):
-        pass
+        expression = "((100+20)*3-10/2+11-1*(10+34)-54)"
+        c = Calc(expression)
+        expected = (10, "((100+20)*3-10/2+11-1*(10+34)-54)", ((100+20)*3-10/2+11-1*(10+34)-54))
+        actual = c.expression_result()
+        self.assertEqual(actual, expected)
 
     def test_expression_with_incorrect_parentheses(self):
-        pass
+        expression = "((100+20)*3)-10/2+11-1*(10+34)-54)"
+        c = Calc(expression)
+        expected = 'Missing bracket(s)'
+        actual = c.expression_result()
+        self.assertEqual(actual, expected)
 
 if __name__ == '__main__':
     unittest.main()
