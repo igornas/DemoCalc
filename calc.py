@@ -30,10 +30,10 @@ class Calc:
         return self.expression.count('(') != self.expression.count(')')
 
     def check_nondigit_symbols(self):
-        return re.search(self._PATTERNS['NONDIGIT'], self.expression)
+        return True if re.search(self._PATTERNS['NONDIGIT'], self.expression) else False
 
     def check_float_numbers(self):
-        return re.search(self._PATTERNS['FLOAT'], self.expression)
+        return True if re.search(self._PATTERNS['FLOAT'], self.expression) else False
 
     def check_qty_of_numbers(self):
         qty = len(re.findall(self._PATTERNS['INT'], self.expression))

@@ -3,6 +3,35 @@ from calc import Calc
 
 
 class TestCalc(unittest.TestCase):
+    def test_create_object(self):
+
+        c = Calc("123")
+        expected = "123"
+        self.assertEqual(c.expression, expected)
+        expected = "Calc object with expression = 123"
+        self.assertEqual(c.__repr__(), expected)
+
+    def test_check_round_brackets(self):
+        c1 = Calc("123+(12-3)*2")
+        self.assertEqual(c1.check_round_brackets(), False)
+        c2 = Calc("123+(12-3)*2)")
+        self.assertEqual(c2.check_round_brackets(), True)
+
+    def test_check_nondigit_symbols(self):
+        c1 = Calc("123*2")
+        self.assertEqual(c1.check_nondigit_symbols(), False)
+        c2 = Calc("123sd*2)")
+        self.assertEqual(c2.check_nondigit_symbols(), True)
+
+    def test_check_float_numbers(self):
+        c1 = Calc("54+123.345-2")
+        self.assertEqual(c1.check_float_numbers(), True)
+        c2 = Calc("54+123,345-2")
+        self.assertEqual(c2.check_float_numbers(), True)
+        c3 = Calc("54+123345-2")
+        self.assertEqual(c3.check_float_numbers(), False)
+
+
     def test_valid_expressions(self):
         expression = "1+2*3-10/2"
         c = Calc(expression)
@@ -79,11 +108,11 @@ class TestCalc(unittest.TestCase):
         actual = c1.expression_result()
         self.assertEqual(actual, expected)
 
-        # expression = "((100+20)*3-10/2+11-2(10+34)-54)"
-        # c2 = Calc(expression)
-        # expected = 'missing operator near parentheses'
-        # actual = c2.expression_result()
-        # self.assertEqual(actual, expected)
+        expression = "((100+20)*3-10/2+11-2(10+34)-54)"
+        c2 = Calc(expression)
+        expected = 'missing operator near parentheses'
+        actual = c2.expression_result()
+        self.assertEqual(actual, expected)
 
 if __name__ == '__main__':
     unittest.main()
