@@ -132,5 +132,12 @@ class TestCalc(unittest.TestCase):
         actual = c2.expression_result()
         self.assertEqual(actual, expected)
 
+    def test_expression_contains_division_by_zero(self):
+        expression = "10/0+2"
+        c = Calc(expression)
+        expected = "Error. Your expression contains division by zero"
+        self.assertEqual(c.expression_result(), expected)
+
+
 if __name__ == '__main__':
     unittest.main()

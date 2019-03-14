@@ -45,7 +45,6 @@ class Calc:
         return left or right
 
     def expression_result(self):
-        result = []
 
         if self.check_nondigit_symbols():
             return self._STATUS['0']
