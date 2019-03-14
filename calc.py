@@ -12,7 +12,7 @@ class Calc:
     }
 
     _STATUS = {
-        '0': 'Expression contains nondigital symbol(s)',
+        '0': 'Expression contains nondigital symbol(s) or invalid operator(s)',
         '1': 'Expression contains float number(s)',
         '2': 'Missing bracket(s)',
         '3': 'Expression contain more than 10 numbers',

@@ -60,7 +60,7 @@ class TestCalc(unittest.TestCase):
     def test_expressions_with_letter(self):
         expression = "1a+2*3-10/2"
         c = Calc(expression)
-        expected = 'Expression contains nondigital symbol(s)'
+        expected = 'Expression contains nondigital symbol(s) or invalid operator(s)'
         actual = c.expression_result()
         self.assertEqual(actual, expected)
 
@@ -98,8 +98,16 @@ class TestCalc(unittest.TestCase):
         actual = c.expression_result()
         self.assertEqual(actual, expected)
 
+    def test_expression_with_eleven_numbers(self):
+        expression = "100+20*3-10/2+11-1*10+34-54+7"
+        c = Calc(expression)
+        expected = 'Expression contain more than 10 numbers'
+        actual = c.expression_result()
+        self.assertEqual(actual, expected)
+
+
     def test_expression_with_more_then_ten_numbers(self):
-        expression = "100+20*3-10/2+11-1*10+34-54+21"
+        expression = "100+20*3-10/2+11-1*10+34-54+21*2-7"
         c = Calc(expression)
         expected = 'Expression contain more than 10 numbers'
         actual = c.expression_result()
@@ -138,6 +146,19 @@ class TestCalc(unittest.TestCase):
         expected = "Error. Your expression contains division by zero"
         self.assertEqual(c.expression_result(), expected)
 
+    def test_expression_with_other_arith_operators(self):
+        """
+        This test case for demonstration a bug
+        """
+        expression = "10%3+2-2**2"
+        c = Calc(expression)
+        expected = 'Expression contains nondigital symbol(s) or invalid operator(s)'
+        self.assertEqual(c.expression_result(), expected)
+
+
+    def test_expression_another(self):
+        pass
+
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)
